@@ -1,0 +1,62 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Bicycle {
+  + Bicycle(String, boolean): 
+  + operate(): void
+  + displayInfo(): void
+}
+class Boat {
+  + Boat(String, FuelType, double): 
+  + displayInfo(): void
+  + operate(): void
+}
+class Car {
+  + Car(String, FuelType, int): 
+  + operate(): void
+  + displayInfo(): void
+}
+enum FuelType << enumeration >> {
+  + FuelType(): 
+  + values(): FuelType[]
+  + valueOf(String): FuelType
+}
+class LandTransport {
+  + LandTransport(String, FuelType): 
+}
+class Main {
+  + Main(): 
+  + main(String[]): void
+}
+interface Operable << interface >> {
+  + operate(): void
+}
+class Ship {
+  + Ship(String, FuelType, int): 
+  + operate(): void
+  + displayInfo(): void
+}
+class Transport {
+  + Transport(String, FuelType): 
+  + displayInfo(): void
+}
+class WaterTransport {
+  + WaterTransport(String, FuelType): 
+}
+
+Bicycle         -[#000082,plain]-^  LandTransport  
+Boat            -[#000082,plain]-^  WaterTransport 
+Car             -[#000082,plain]-^  LandTransport  
+LandTransport   -[#000082,plain]-^  Transport      
+Main            -[#595959,dashed]->  Bicycle        : "«create»"
+Main            -[#595959,dashed]->  Boat           : "«create»"
+Main            -[#595959,dashed]->  Car            : "«create»"
+Main            -[#595959,dashed]->  Ship           : "«create»"
+Ship            -[#000082,plain]-^  WaterTransport 
+Transport      "1" *-[#595959,plain]-> "fuelType\n1" FuelType       
+Transport       -[#008200,dashed]-^  Operable       
+WaterTransport  -[#000082,plain]-^  Transport      
+@enduml
